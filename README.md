@@ -12,3 +12,10 @@ It's Flask-React-App which have User Authentication functionality with JWT Token
 - CRUDs Operations performed with authentication
 - API Development
 - Proper error handling at every steps
+
+# To Use
+- Clone this repo
+- leave backend folder as it is.
+- create a new react app in the repo folder and replace the 'src' and 'public' folder with the folder of this repo.
+- make sure you install all the required module and libraries.
+- Hurray! you are good to go. Play and debug the functionality in browser console and vsc console.
