@@ -123,6 +123,7 @@ export default function Home(){
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>User ID</th>
                                     <th>Name</th>
                                     <th>Price</th>
                                     <th>Date</th>
@@ -133,6 +134,7 @@ export default function Home(){
                                 {items.map((item,key) =>
                                     <tr key={key}>
                                         <td>{item.id}</td>
+                                        <td>{item.user_id}</td>
                                         <td>{item.name}</td>
                                         <td>{item.price}</td>
                                         <td>{item.date}</td>

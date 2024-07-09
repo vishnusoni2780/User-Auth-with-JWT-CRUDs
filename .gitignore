@@ -1,0 +1,7 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+/Backend - py/venv
+/Backend - Py/migrations
+/Backend - Py/__pycache__
+/Backend - Py/db/__pycache__
+/Backend - Py/models/__pycache__

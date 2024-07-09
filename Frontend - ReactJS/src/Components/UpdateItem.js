@@ -2,7 +2,7 @@ import React, { useState, useEffect  } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
  
-export default function EditUser(){
+export default function UpdateItem(){
 
     const navigate = useNavigate();
     const [inputs, setInputs] = useState([]);
