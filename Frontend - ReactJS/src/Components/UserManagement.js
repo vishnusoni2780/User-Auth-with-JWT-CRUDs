@@ -2,28 +2,28 @@ import React, {useEffect, useState} from "react";
 import axios from "axios"
 import {Link, useNavigate} from "react-router-dom"
 
-export default function Home(){
+export default function UserManagement(){
     
     const navigate = useNavigate();
-    const [items, setItems] = useState([]);
+    const [users, setUsers] = useState([]);
     const token = localStorage.getItem("token");
 
     useEffect( ()=> {
-        getItems();
+        getUsers();
         isTokenExpiredfn();
     }, []);
 
-    function getItems(){
+    function getUsers(){
         axios({
             method:'GET',
-            url:'http://127.0.0.1:5000/getItems', 
+            url:'http://127.0.0.1:5000/getUsers', 
             headers: {
                 "Authorization" : `Bearer ${token}`
             }
         })
         .then(function(response){
             console.log(response.data);
-            setItems(response.data);
+            setUsers(response.data);
         })
         .catch((error) => {
             console.log(error.response.status)
@@ -36,17 +36,17 @@ export default function Home(){
         });
     }
 
-    const deleteItem = (id) => {
+    const deleteUser = (id) => {
         axios({
             method:'DELETE',
-            url:`http://127.0.0.1:5000/deleteItem/${id}`, 
+            url:`http://127.0.0.1:5000/deleteUser/${id}`, 
             headers: {
                 "Authorization" : `Bearer ${token}`
             }
         })
         .then(function(response){
             console.log(response.data);
-            getItems();
+            getUsers();
         })
         .catch((error) => {
             console.log(error.response.status)
@@ -117,30 +117,32 @@ export default function Home(){
             <div className="container h-100">
                 <div className="row h-100">
                     <div className="col-12">
-                        <p><Link to="/addItem" className="btn btn-success">Add New Item</Link></p>
-                        <h1>Item List</h1>
+                        <p><Link to="/userRegistration" className="btn btn-success">Add New User</Link></p>
+                        <h1>User List</h1>
                         <table className="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>User ID</th>
                                     <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Date</th>
+                                    <th>Email</th>
+                                    <th>Password</th>
+                                    <th>About</th>
+                                    <th>Role Name</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {items.map((item,key) =>
+                                {users.map((user,key) =>
                                     <tr key={key}>
-                                        <td>{item.id}</td>
-                                        <td>{item.user_id}</td>
-                                        <td>{item.name}</td>
-                                        <td>{item.price}</td>
-                                        <td>{item.date}</td>
+                                        <td>{user.id}</td>
+                                        <td>{user.name}</td>
+                                        <td>{user.email}</td>
+                                        <td style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word', maxWidth:"300px"}}>{user.password}</td>
+                                        <td>{user.about}</td>
+                                        <td>{user.slug}</td>
                                         <td>
-                                            <Link to={`updateItem/${item.id}`} className="btn btn-success" style={{marginRight: "10px"}}>Edit</Link>
-                                            <button onClick={() => deleteItem(item.id)} className="btn btn-danger">Delete</button>
+                                            <Link to={`updateUser/${user.id}`} className="btn btn-success" style={{marginRight: "10px"}}>Edit</Link>
+                                            <button onClick={() => deleteUser(user.id)} className="btn btn-danger">Delete</button>
                                         </td>
                                     </tr>
                                 )}

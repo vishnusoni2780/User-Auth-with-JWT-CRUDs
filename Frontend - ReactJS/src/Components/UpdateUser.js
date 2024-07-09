@@ -2,7 +2,7 @@ import React, { useState, useEffect  } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
  
-export default function UpdateItem(){
+export default function UpdateUser(){
 
     const navigate = useNavigate();
     const [inputs, setInputs] = useState([]);
@@ -10,14 +10,14 @@ export default function UpdateItem(){
     const token = localStorage.getItem("token");
 
     useEffect( ()=> {    
-        getItem();
+        getUser();
         isTokenExpiredfn();
     }, []);
   
-    function getItem() {
+    function getUser() {
         axios({
             method:'GET',
-            url:`http://127.0.0.1:5000/getItem/${id}`, 
+            url:`http://127.0.0.1:5000/getUser/${id}`, 
             headers: {
                 "Authorization" : `Bearer ${token}`
             }
@@ -101,16 +101,32 @@ export default function UpdateItem(){
         <div className="row">
             <div className="col-2"></div>
             <div className="col-8">
-            <h1>Edit Item</h1>
+            <h1>Edit User</h1>
             <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label>User ID</label>
+                  <input type="text" value={inputs.id} className="form-control" name="id" onChange={handleChange} />
+                </div>
                 <div className="mb-3">
                   <label>Name</label>
                   <input type="text" value={inputs.name} className="form-control" name="name" onChange={handleChange} />
                 </div>
                 <div className="mb-3">
-                  <label>Price</label>
-                  <input type="text" value={inputs.price} className="form-control" name="price" onChange={handleChange} />
-                </div>   
+                  <label>Email</label>
+                  <input type="text" value={inputs.email} className="form-control" name="email" onChange={handleChange} />
+                </div>
+                <div className="mb-3">
+                  <label>Password</label>
+                  <input type="text" value={inputs.password} className="form-control" name="password" onChange={handleChange} />
+                </div>
+                <div className="mb-3">
+                  <label>About Me</label>
+                  <input type="text" value={inputs.about} className="form-control" name="about" onChange={handleChange} />
+                </div>
+                <div className="mb-3">
+                  <label>Role</label>
+                  <input type="text" value={inputs.slug} className="form-control" name="slug" onChange={handleChange} />
+                </div>
                 <button type="submit" name="update" className="btn btn-primary">Save</button>
             </form> 
             </div>

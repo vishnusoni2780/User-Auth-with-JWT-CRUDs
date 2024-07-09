@@ -3,7 +3,7 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom"
 function Profile() {
  
-    const [profileData, setProfileData] = useState(null)
+    const [profileData, setProfileData] = useState([])
      
     useEffect(() => {
         getProfileDetails();
@@ -29,7 +29,8 @@ function Profile() {
             pid: response.data.id,
             profile_name: response.data.name,
             profile_email: response.data.email,
-            about_me: response.data.about}))
+            about_me: response.data.about,
+            role: response.data.role}))
         })
         .catch((error) => {
             console.log(error.response)
@@ -42,7 +43,8 @@ function Profile() {
         });
     }
 
-    
+
+
     function logout(){
         axios({
             method:'POST',
@@ -112,7 +114,11 @@ function Profile() {
                     <a className="nav-item nav-link" href="/home">View Items</a>
                 </div>
             </div>
-            <button type="submit" onClick={logout} name="logoutBtn" className='btn btn-danger'>Log out</button>
+            <div className="mb-1">
+                {profileData.role==="admin" ? <a type="submit" href="/userManagement" name="userManagementBtn" className='btn btn-primary' style={{marginRight: "10px"}}>Manage Users</a> : <></>}
+                <button type="submit" onClick={logout} name="logoutBtn" className='btn btn-danger'>Log out</button>
+            </div>
+            
         </nav>
 
         <div className="row d-flex justify-content-center align-items-center h-50">
@@ -146,6 +152,10 @@ function Profile() {
                                     <div className="col-6 mb-3">
                                         <h6>About</h6>
                                         <p className="text-muted">{profileData.about_me}</p>
+                                    </div>
+                                    <div className="col-6 mb-3">
+                                        <h6>Role</h6>
+                                        <p className="text-muted">{profileData.role}</p>
                                     </div>
                                 </div>
                             </div>
